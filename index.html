@@ -1,7 +1,8 @@
 <html>
 	<head>
     <meta charset="utf-8" />
-		<title>Orçamento pessoal</title>
+		<title>Loja Mercadorias Diversas</title>
+    <script src="appM.js"></script>
     
     <!--Estilo costumizado-->
     <link rel="stylesheet" href="estilo.css">
@@ -48,7 +49,7 @@
     <div class="container">
       <div class="row">
         <div class="col mb-5">
-          <h1 class="display-4">Registro de nova despesa</h1>
+          <h1 class="display-4">Registro de Mercadoria</h1>
         </div>
       </div>
 
@@ -84,28 +85,33 @@
         </div>
 
         <div class="col-md-6">
-          <select class="form-control" id="tipo">
-            <option value="">Tipo</option>
-            <option value="1">Alimentação</option>
-            <option value="2">Educação</option>
-            <option value="3">Lazer</option>
-            <option value="4">Saúde</option>
-            <option value="5">Transporte</option>
+          <select class="form-control" id="categoria">
+            <option value="">Categoria</option>
+            <option value="1">Escolar</option>
+            <option value="2">Informática</option>
+            <option value="3">Móveis</option>
+            <option value="4">Eletro domestico</option>
+            <option value="5">Celular</option>
+            <option value="6">Roupas</option>
           </select>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
           <input type="text" class="form-control" placeholder="Descrição" id="descricao" />
         </div>
 
         <div class="col-md-2">
-          <input type="text" class="form-control" placeholder="Valor" id="valor" />
+          <input type="number" class="form-control" placeholder="Quantidade" id="quantidade" />
+        </div>
+
+        <div class="col-md-2">
+          <input type="number" class="form-control" placeholder="Valor" id="valor" />
         </div>
 
         <div class="col-md-2 d-flex justify-content-end">
-          <button type="button" class="btn btn-color" onclick="cadastrarDespesa()">
+          <button type="button" class="btn btn-color" onclick="cadastrarMercadoria()">
             <i class="fas fa-plus"></i>
           </button>
         </div>
@@ -113,7 +119,7 @@
     </div>
 
      <!-- Modal sucesso -->
-     <div class="modal fade" id="modalRegistraDespesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal fade" id="modalRegistraMercadoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div id="modal_titulo_div">
@@ -129,6 +135,8 @@
         </div>
       </div>
     </div>
+
+    
    
   </body>	
 </html>
