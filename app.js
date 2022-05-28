@@ -20,7 +20,7 @@ class Mercadorias {
         return true
     }
 }
-// 2 = Segundo  banco de dados onde vamos adicionar valores e recuperar seus valores dentro do LocalStorage
+//  Principal 2 = Segundo  banco de dados onde vamos adicionar valores e recuperar seus valores dentro do LocalStorage
 class Bd {
     constructor() {
         let id = localStorage.getItem('id') // 3 = Procura o dado 'id' dentro de local storage, porem não existe este valor em local storage então resultado disso é null
@@ -55,7 +55,7 @@ class Bd {
         for(let i = 1; i <= id; i++) {
 
             // recuperar as mercadorias
-            let mercadoria = JSON.parse(localStorage.getItem(i)); // parse recupera os valores em JSON  em array
+            let mercadoria = JSON.parse(localStorage.getItem(i)); // parse recupera os valores em JSON  para array
 
             //existe a possibilidade de haver índices que foram pulados/removidos
             //neste caso nós vamos pular esses índices
@@ -71,15 +71,23 @@ class Bd {
         return mercadorias
     }
 
+    pesquisar(mercadoria) {
+        let mercadoriasFiltradas = Array();
+
+        mercadoriasFiltradas = this.recuperarTodosRegistros()
+
+        return mercadoriasFiltradas
+    }
+
 
 }
 //  adicina a class Bd na variavel bd
 let bd = new Bd()
 
-// 1 = Primeiro criamos a function do evento do botão para cadastrar as despesas de acordo com o valor dos input
+// Principal 1 = Primeiro criamos a function do evento do botão para cadastrar as despesas de acordo com o valor dos input
 function cadastrarMercadoria() {
     
-    
+    // Recuperamos os valores do imput e armazena nas variaveis
     let ano = document.getElementById('ano')
     let mes = document.getElementById('mes')
     let dia = document.getElementById('dia')
@@ -91,7 +99,7 @@ function cadastrarMercadoria() {
     // Criamos a variavel mercadoria contendo os atributos do Objeto Mercadorias 
     let mercadoria = new Mercadorias (ano.value, mes.value, dia.value, categoria.value, descricao.value, quantidade.value, valor.value)
         
-    
+    console.log(categoria)
     //4 = Vamos verificar se á valor no formulario com a function validarDados .. e Executar o modal de acordo com o resultado
    if(mercadoria.validarDados()) {
        //Ao executar o evento de onlcik capturamos a função gravar dentro da classe Bd
@@ -147,8 +155,10 @@ function carregaListaMercadorias() {
     for(let i = 0; i < valorEqtd.length; i++) {
         valorTotal += Number(valorEqtd[i])
     }
-    console.log(mercadorias)
-    console.log(valorTotal)
+
+    //console.log(mercadorias)
+    //console.log(valorEqtd)
+    //console.log(valorTotal)
     
 
     // 4 = percorre pelo Array mercadorias, listando cada mercadoria de forma dinâmica
@@ -202,12 +212,24 @@ function carregaListaMercadorias() {
      let valorT = document.getElementById('valorT');
       valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
 
-     
-    
-    
-
-    
-    
-
 }
 
+function pesquisarMercadoria() {
+
+    // Recuperamos os valores do imput e armazena nas variaveis
+    let ano = document.getElementById('ano').value
+    let mes = document.getElementById('mes').value
+    let dia = document.getElementById('dia').value
+    let categoria = document.getElementById('categoria').value
+    let descricao = document.getElementById('descricao').value
+    let quantidade = document.getElementById('quantidade').value
+    let valor = document.getElementById('valor').value
+
+    mercadoria = new Mercadorias (ano, mes, dia, categoria, descricao, quantidade,valor)
+
+    console.log(bd.pesquisar())
+    
+    
+    
+}
+    
