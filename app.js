@@ -139,16 +139,17 @@ function carregaListaMercadorias() {
     var ValorTotalMercadorias = document.getElementById('ValorTotalMercadorias')
 
     // map recupera o valor dentro de um objeto da Array onde valores agora passa a receber apenas o valor do objeto Valor em formato String
-    let valores = mercadorias.map(function(e) { return e.valor; });
-    let qtd = mercadorias.map(function(e) { return e.quantidade; });
     
+    let valorEqtd = mercadorias.map(function(q) { return q.quantidade * q.valor});
+
     let valorTotal = 0
     //Percorre por cada indice do Array valores armazenando seus valores na variavel i até que i seja menor que o comprimento do array, em seguida soma o valor com a variavel valorTotal .
-    for(let i = 0; i < valores.length; i++) {
-        valorTotal += Number(valores[i])
+    for(let i = 0; i < valorEqtd.length; i++) {
+        valorTotal += Number(valorEqtd[i])
     }
-
+    console.log(mercadorias)
     console.log(valorTotal)
+    
 
     // 4 = percorre pelo Array mercadorias, listando cada mercadoria de forma dinâmica
     // metodos forEach é usado para percorrer o arrays, mas usa uma função de modo diferente do laço for "tradicional". Ele passa a função de callback para cada elemento do array juntamente aos seguintes parâmetros valor atual (obrigatório) - O valor do elemento atual do array
@@ -162,7 +163,7 @@ function carregaListaMercadorias() {
 
         // Ajustar a categoria 
         switch(parseInt(m.categoria)){
-            case 1: m.categoria = 'Escolas'
+            case 1: m.categoria = 'Escolar'
                break
             case 2: m.categoria = 'Informática'
                break
@@ -192,12 +193,18 @@ function carregaListaMercadorias() {
         linha.insertCell(3).innerHTML = m.quantidade + ' unidades'
         linha.insertCell(4).innerHTML = valorBr
         linha.insertCell(5).innerHTML = ValorQtdBr
-
+       
     })
-    //criando a linha (tr)
-    let linhaV = ValorTotalMercadorias.insertRow()
-    //Criar as colunas (td)
-    linhaV.insertCell(0).innerHTML = 'oi'
+    
+
+     let valorTotalBr = valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+    
+     let valorT = document.getElementById('valorT');
+      valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
+
+     
+    
+    
 
     
     
