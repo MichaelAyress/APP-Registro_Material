@@ -138,19 +138,19 @@ function carregaListaMercadorias() {
     var listaMercadorias = document.getElementById('listaMercadorias')
     var ValorTotalMercadorias = document.getElementById('ValorTotalMercadorias')
 
-    console.log(mercadorias)
-    
+    // map recupera o valor dentro de um objeto da Array onde valores agora passa a receber apenas o valor do objeto Valor em formato String
     let valores = mercadorias.map(function(e) { return e.valor; });
-    console.log(valores);
-
     let qtd = mercadorias.map(function(e) { return e.quantidade; });
-    console.log(qtd);
     
+    let valorTotal = 0
+    //Percorre por cada indice do Array valores armazenando seus valores na variavel i até que i seja menor que o comprimento do array, em seguida soma o valor com a variavel valorTotal .
+    for(let i = 0; i < valores.length; i++) {
+        valorTotal += Number(valores[i])
+    }
 
-    
+    console.log(valorTotal)
 
-
-    // 3 = percorre pelo Array mercadorias, listando cada mercadoria de forma dinâmica
+    // 4 = percorre pelo Array mercadorias, listando cada mercadoria de forma dinâmica
     // metodos forEach é usado para percorrer o arrays, mas usa uma função de modo diferente do laço for "tradicional". Ele passa a função de callback para cada elemento do array juntamente aos seguintes parâmetros valor atual (obrigatório) - O valor do elemento atual do array
     mercadorias.forEach(function(m) {
 
@@ -178,8 +178,9 @@ function carregaListaMercadorias() {
  
         linha.insertCell(1).innerHTML = m.categoria
         linha.insertCell(2).innerHTML = m.descricao
-
+        // variavel valor recebe em formato de número o valor dentro do objeto valor
         let valor = Number(m.valor)
+        // converte o valor para exibir como moeda br em formato string
         let valorBr = valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
 
 
@@ -191,7 +192,12 @@ function carregaListaMercadorias() {
         linha.insertCell(3).innerHTML = m.quantidade + ' unidades'
         linha.insertCell(4).innerHTML = valorBr
         linha.insertCell(5).innerHTML = ValorQtdBr
+
     })
+    //criando a linha (tr)
+    let linhaV = ValorTotalMercadorias.insertRow()
+    //Criar as colunas (td)
+    linhaV.insertCell(0).innerHTML = 'oi'
 
     
     
