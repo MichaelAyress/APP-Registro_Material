@@ -63,7 +63,7 @@ class Bd {
                 continue
             }
 
-            mercadoria.i // Adiciona um elemento chamado Id dentro do array com o valor de i
+            mercadoria.id = i // Adiciona um elemento chamado Id dentro do array com o valor de i
             mercadorias.push(mercadoria) // cada interação adicionamos mercadoria dentro do Array mercadorias
 
         }
@@ -127,6 +127,10 @@ class Bd {
         return mercadoriasFiltradas
     }
 
+    remover(id) {
+        localStorage.removeItem(id)
+    }
+
 
 }
 //  adicina a class Bd na variavel bd
@@ -184,16 +188,17 @@ function cadastrarMercadoria() {
 }
 
 // principal 4 = página de consulta
-function carregaListaMercadorias() {
+function carregaListaMercadorias(mercadorias = Array(), filtro = false) {
     // 1 = Criamos  Array chamado mercadorias
-    let mercadorias = Array()
+    if(mercadorias.length == 0 && filtro == false) {
     
     // 2 = Recuperamos os registros do LocalStorage e adicionamos no Array mercadorias
     mercadorias = bd.recuperarTodosRegistros();
+    }
 
     //3 = selecionando o elemento tbody da tabela
     var listaMercadorias = document.getElementById('listaMercadorias')
-    
+    listaMercadorias.innerHTML = ''
     
     // map recupera o valor dentro de um objeto da Array onde valores agora passa a receber apenas o valor do objeto Valor em formato String
     
@@ -252,6 +257,22 @@ function carregaListaMercadorias() {
         linha.insertCell(3).innerHTML = m.quantidade + ' unidades'
         linha.insertCell(4).innerHTML = valorBr
         linha.insertCell(5).innerHTML = ValorQtdBr
+        //------------------------------------------
+         //Criação do botão excluir
+         let btn = document.createElement("button")
+         btn.className = 'btn btn-danger'
+         btn.innerHTML = '<i class="fas fa-times"</i>'
+         btn.id = `id_mercadoria_${m.id}`
+         btn.onclick = function() {
+             
+            let id = this.id.replace('id_mercadoria_','');
+
+             bd.remover(id)
+             window.location.reload()
+         }
+         linha.insertCell(6).append(btn)
+         console.log(m)
+        
        
     })
     
@@ -276,8 +297,12 @@ function pesquisarMercadoria() {
 
     let mercadoria = new Mercadorias (ano, mes, dia, categoria, descricao, quantidade,valor)
 
-    bd.pesquisar(mercadoria)
+    let mercadorias =  bd.pesquisar(mercadoria)
+
+    carregaListaMercadorias(mercadorias, true)
    
+
+    /*
      //3 = selecionando o elemento tbody da tabela
      var listaMercadorias = document.getElementById('listaMercadorias')
      listaMercadorias.innerHTML = ''
@@ -341,6 +366,19 @@ function pesquisarMercadoria() {
          linha.insertCell(3).innerHTML = m.quantidade + ' unidades'
          linha.insertCell(4).innerHTML = valorBr
          linha.insertCell(5).innerHTML = ValorQtdBr
+         //------------------------------------------
+         //Criação do botão excluir
+         let btn = document.createElement("button")
+         btn.className = 'btn btn-danger'
+         btn.innerHTML = '<i class="fas fa-times"</i>'
+         btn.id = `id_mercadoria_${m.id}`
+         btn.onclick = function() {
+             let id = this.id.replace('id_mercadoria_','')
+
+             bd.remover(id)
+             window.location.reload()
+         }
+         linha.insertCell(6).append(btn)
         
      })
      
@@ -349,7 +387,7 @@ function pesquisarMercadoria() {
      
       let valorT = document.getElementById('valorT');
        valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
-    
+    */
 }
     
 
