@@ -70,12 +70,60 @@ class Bd {
 
         return mercadorias
     }
-
+    
+    // 7 -Functão de pesquisa onde o parâmetro da função recebe os valores do input após o evento onclick do botão de consulta e compara com o Array mercadoriasFiltradas
     pesquisar(mercadoria) {
-        let mercadoriasFiltradas = Array();
+        let mercadoriasFiltradas = Array(); // criamopo o array mercadoriasFiltradas
+    
+        mercadoriasFiltradas = this.recuperarTodosRegistros() // Mercadorias filtradas passa a receber o Array já registrado com a function recuperarTodosRegistros()
 
-        mercadoriasFiltradas = this.recuperarTodosRegistros()
 
+        //console.log(mercadoriasFiltradas)
+        //console.log(mercadoria)
+        // usando o filter para comparar se o valor do imput se encontra com o valor do array e se true retorna o registro do valor comparado se o input estiver vazio não retornara nada 
+        //ano
+        if(mercadoria.ano != '') { 
+        mercadoriasFiltradas = mercadoriasFiltradas.filter(d => d.ano == mercadoria.ano)
+        
+        }
+
+        //mes
+        if(mercadoria.mes != '') { 
+        mercadoriasFiltradas = mercadoriasFiltradas.filter(d => d.mes == mercadoria.mes)
+            
+        }
+
+        //dia
+        if(mercadoria.dia != '') { 
+        mercadoriasFiltradas = mercadoriasFiltradas.filter(d => d.dia == mercadoria.dia)
+            
+        }
+
+        //categoria
+        if(mercadoria.categoria != '') { 
+        mercadoriasFiltradas = mercadoriasFiltradas.filter(d => d.categoria == mercadoria.categoria)
+            
+        }
+
+        //descricao
+        if(mercadoria.descricao != '') { 
+        mercadoriasFiltradas = mercadoriasFiltradas.filter(d => d.descricao == mercadoria.descricao)
+            
+        }
+
+        //quantidade
+        if(mercadoria.quantidade != '') { 
+        mercadoriasFiltradas = mercadoriasFiltradas.filter(d => d.quantidade == mercadoria.quantidade)
+            
+        }
+
+        //valor
+        if(mercadoria.valor != '') { 
+        mercadoriasFiltradas = mercadoriasFiltradas.filter(d => d.valor == mercadoria.valor)
+            
+        }
+
+        
         return mercadoriasFiltradas
     }
 
@@ -135,7 +183,7 @@ function cadastrarMercadoria() {
 
 }
 
-//5 =  Página Consulta
+// principal 4 = página de consulta
 function carregaListaMercadorias() {
     // 1 = Criamos  Array chamado mercadorias
     let mercadorias = Array();
@@ -213,7 +261,7 @@ function carregaListaMercadorias() {
       valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
 
 }
-
+ // Principal 5 = botão de pesquisa
 function pesquisarMercadoria() {
 
     // Recuperamos os valores do imput e armazena nas variaveis
@@ -225,9 +273,9 @@ function pesquisarMercadoria() {
     let quantidade = document.getElementById('quantidade').value
     let valor = document.getElementById('valor').value
 
-    mercadoria = new Mercadorias (ano, mes, dia, categoria, descricao, quantidade,valor)
+    let mercadoria = new Mercadorias (ano, mes, dia, categoria, descricao, quantidade,valor)
 
-    console.log(bd.pesquisar())
+    bd.pesquisar(mercadoria)
     
     
     
