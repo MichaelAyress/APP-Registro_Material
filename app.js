@@ -63,7 +63,7 @@ class Bd {
                 continue
             }
 
-            mercadoria.i // Adiciona um elemento chamado Id dentro do array com o valor de i
+            mercadoria.id = i // Adiciona um elemento chamado Id dentro do array com o valor de i
             mercadorias.push(mercadoria) // cada interação adicionamos mercadoria dentro do Array mercadorias
 
         }
@@ -127,6 +127,10 @@ class Bd {
         return mercadoriasFiltradas
     }
 
+    remover(id) {
+        localStorage.removeItem(id)
+    }
+
 
 }
 //  adicina a class Bd na variavel bd
@@ -184,14 +188,20 @@ function cadastrarMercadoria() {
 }
 
 // principal 4 = página de consulta
-function carregaListaMercadorias() {
+function carregaListaMercadorias(mercadorias = Array(), filtro = false) {
     // 1 = Criamos  Array chamado mercadorias
-    let mercadorias = Array();
+    if(mercadorias.length == 0 && filtro == false) {
+    
     // 2 = Recuperamos os registros do LocalStorage e adicionamos no Array mercadorias
-    mercadorias = bd.recuperarTodosRegistros()
+    mercadorias = bd.recuperarTodosRegistros();
+    }
+     
+    // 2 = Recuperamos os registros do LocalStorage e adicionamos no Array mercadorias
+   
 
     //3 = selecionando o elemento tbody da tabela
     var listaMercadorias = document.getElementById('listaMercadorias')
+    listaMercadorias.innerHTML = ''
     var ValorTotalMercadorias = document.getElementById('ValorTotalMercadorias')
 
     // map recupera o valor dentro de um objeto da Array onde valores agora passa a receber apenas o valor do objeto Valor em formato String
@@ -251,6 +261,22 @@ function carregaListaMercadorias() {
         linha.insertCell(3).innerHTML = m.quantidade + ' unidades'
         linha.insertCell(4).innerHTML = valorBr
         linha.insertCell(5).innerHTML = ValorQtdBr
+        //------------------------------------------
+         //Criação do botão excluir
+         let btn = document.createElement("button")
+         btn.className = 'btn btn-danger'
+         btn.innerHTML = '<i class="fas fa-times"</i>'
+         btn.id = `id_mercadoria_${m.id}`
+         btn.onclick = function() {
+             
+            let id = this.id.replace('id_mercadoria_','');
+
+             bd.remover(id)
+             window.location.reload()
+         }
+         linha.insertCell(6).append(btn)
+         console.log(m)
+        
        
     })
     
@@ -259,8 +285,8 @@ function carregaListaMercadorias() {
     
      let valorT = document.getElementById('valorT');
       valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
-
 }
+
  // Principal 5 = botão de pesquisa
 function pesquisarMercadoria() {
 
@@ -275,9 +301,98 @@ function pesquisarMercadoria() {
 
     let mercadoria = new Mercadorias (ano, mes, dia, categoria, descricao, quantidade,valor)
 
-    bd.pesquisar(mercadoria)
-    
-    
-    
+    let mercadorias =  bd.pesquisar(mercadoria)
+
+    carregaListaMercadorias(mercadorias, true)
+   
+
+    /*
+     //3 = selecionando o elemento tbody da tabela
+     var listaMercadorias = document.getElementById('listaMercadorias')
+     listaMercadorias.innerHTML = ''
+     
+     var ValorTotalMercadorias = document.getElementById('ValorTotalMercadorias')
+ 
+     // map recupera o valor dentro de um objeto da Array onde valores agora passa a receber apenas o valor do objeto Valor em formato String
+     
+     let valorEqtd = mercadorias.map(function(q) { return q.quantidade * q.valor});
+ 
+     let valorTotal = 0
+     //Percorre por cada indice do Array valores armazenando seus valores na variavel i até que i seja menor que o comprimento do array, em seguida soma o valor com a variavel valorTotal .
+     for(let i = 0; i < valorEqtd.length; i++) {
+         valorTotal += Number(valorEqtd[i])
+     }
+ 
+     //console.log(mercadorias)
+     //console.log(valorEqtd)
+     //console.log(valorTotal)
+     
+ 
+     // 4 = percorre pelo Array mercadorias, listando cada mercadoria de forma dinâmica
+     // metodos forEach é usado para percorrer o arrays, mas usa uma função de modo diferente do laço for "tradicional". Ele passa a função de callback para cada elemento do array juntamente aos seguintes parâmetros valor atual (obrigatório) - O valor do elemento atual do array
+     mercadorias.forEach(function(m) {
+ 
+         //criando a linha (tr)
+         let linha = listaMercadorias.insertRow()
+ 
+         //Criar as colunas (td)
+         linha.insertCell(0).innerHTML = `${m.dia}/${m.mes}/${m.ano}`
+ 
+         // Ajustar a categoria 
+         switch(parseInt(m.categoria)){
+             case 1: m.categoria = 'Escolar'
+                break
+             case 2: m.categoria = 'Informática'
+                break
+             case 3: m.categoria = 'Móveis'
+                break
+             case 4: m.categoria = 'Eletro domesticos'
+                break
+             case 5: m.categoria = 'Celular'
+                break
+             case 6: m.categoria = 'Roupas'
+                break
+         }
+  
+         linha.insertCell(1).innerHTML = m.categoria
+         linha.insertCell(2).innerHTML = m.descricao
+         // variavel valor recebe em formato de número o valor dentro do objeto valor
+         let valor = Number(m.valor)
+         // converte o valor para exibir como moeda br em formato string
+         let valorBr = valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+ 
+ 
+         // Multiplicando Quantidade com valores e convertendo pra moeda BR
+         let valorQuantidade =  Number(m.quantidade) * Number(m.valor);
+         let ValorQtdBr = valorQuantidade.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+         
+ 
+         linha.insertCell(3).innerHTML = m.quantidade + ' unidades'
+         linha.insertCell(4).innerHTML = valorBr
+         linha.insertCell(5).innerHTML = ValorQtdBr
+         //------------------------------------------
+         //Criação do botão excluir
+         let btn = document.createElement("button")
+         btn.className = 'btn btn-danger'
+         btn.innerHTML = '<i class="fas fa-times"</i>'
+         btn.id = `id_mercadoria_${m.id}`
+         btn.onclick = function() {
+             let id = this.id.replace('id_mercadoria_','')
+
+             bd.remover(id)
+             window.location.reload()
+         }
+         linha.insertCell(6).append(btn)
+        
+     })
+     
+ 
+      let valorTotalBr = valorTotal.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})
+     
+      let valorT = document.getElementById('valorT');
+       valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
+    */
 }
+    
+
     
