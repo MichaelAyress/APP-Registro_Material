@@ -190,28 +190,21 @@ function cadastrarMercadoria() {
 // principal 4 = página de consulta
 function carregaListaMercadorias(mercadorias = Array(), filtro = false) {
     // 1 = Criamos  Array chamado mercadorias
-<<<<<<< Updated upstream
     if(mercadorias.length == 0 && filtro == false) {
     
     // 2 = Recuperamos os registros do LocalStorage e adicionamos no Array mercadorias
     mercadorias = bd.recuperarTodosRegistros();
     }
-=======
       let mercadorias = Array();
     }
     // 2 = Recuperamos os registros do LocalStorage e adicionamos no Array mercadorias
    
->>>>>>> Stashed changes
 
     //3 = selecionando o elemento tbody da tabela
     var listaMercadorias = document.getElementById('listaMercadorias')
     listaMercadorias.innerHTML = ''
-<<<<<<< Updated upstream
-    
-=======
     var ValorTotalMercadorias = document.getElementById('ValorTotalMercadorias')
 
->>>>>>> Stashed changes
     // map recupera o valor dentro de um objeto da Array onde valores agora passa a receber apenas o valor do objeto Valor em formato String
     
     let valorEqtd = mercadorias.map(function(q) { return q.quantidade * q.valor});
@@ -294,7 +287,7 @@ function carregaListaMercadorias(mercadorias = Array(), filtro = false) {
      let valorT = document.getElementById('valorT');
       valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
 
-}
+
  // Principal 5 = botão de pesquisa
 function pesquisarMercadoria() {
 
@@ -311,7 +304,6 @@ function pesquisarMercadoria() {
 
     let mercadorias =  bd.pesquisar(mercadoria)
 
-<<<<<<< Updated upstream
     carregaListaMercadorias(mercadorias, true)
    
 
@@ -402,10 +394,6 @@ function pesquisarMercadoria() {
        valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
     */
 }
-=======
-    carregaListaMercadorias(mercadorias)
-    
->>>>>>> Stashed changes
     
 
     
