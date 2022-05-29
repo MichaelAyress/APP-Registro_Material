@@ -195,8 +195,7 @@ function carregaListaMercadorias(mercadorias = Array(), filtro = false) {
     // 2 = Recuperamos os registros do LocalStorage e adicionamos no Array mercadorias
     mercadorias = bd.recuperarTodosRegistros();
     }
-      let mercadorias = Array();
-    }
+     
     // 2 = Recuperamos os registros do LocalStorage e adicionamos no Array mercadorias
    
 
@@ -286,7 +285,7 @@ function carregaListaMercadorias(mercadorias = Array(), filtro = false) {
     
      let valorT = document.getElementById('valorT');
       valorT.innerHTML = `<i class="fa-solid fa-coins"></i> ${valorTotalBr}`
-
+}
 
  // Principal 5 = botão de pesquisa
 function pesquisarMercadoria() {
