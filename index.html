@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 	<head>
     <meta charset="utf-8" />
 		<title>Loja Mercadorias Diversas</title>
@@ -21,7 +22,21 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/55527a94d3.js" crossorigin="anonymous"></script>
+     
+    <script>
+      $(document).ready(() => { 
 
+          $('#cadastro').on('click', () => {
+              $('#conteudo').load('index.html')
+          });
+
+          $('#consulta').on('click', () => {
+              $('#conteudo').load('consulta.html')
+          });
+
+      })
+
+    </script>
 
 	</head>
 
@@ -40,10 +55,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="index.html">Cadastro</a>
+              <a id="cadastro" class="nav-link">Cadastro</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="consulta.html">Consulta</a>
+              <a id="consulta" class="nav-link">Consulta</a>
             </li>
           </ul>
           
@@ -51,8 +66,8 @@
       </div>
     </nav>
 
-    <div class="container">
-      <div class="row">
+    <div  class="container">
+      <div id="conteudo" class="row">
         <div class="col mb-5">
           <h1 class="display-4">Registro de Mercadoria</h1>
         </div>
